@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "520903370005",
+    "project_id": "foro-2---dsm",
+    "storage_bucket": "foro-2---dsm.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520903370005:android:f91161d5e22b9c7de7751c",
+        "android_client_info": {
+          "package_name": "com.dsm.foro.controldegastos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZXAwrBBsbPh9bBiSbJbPDtmutgqKiVoU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
