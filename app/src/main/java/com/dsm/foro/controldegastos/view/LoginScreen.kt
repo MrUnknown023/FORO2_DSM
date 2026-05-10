@@ -12,6 +12,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
 import com.dsm.foro.controldegastos.viewmodel.AuthViewModel
 
 @Composable
@@ -22,9 +23,13 @@ fun LoginScreen(onLoginSuccess: () -> Unit, viewModel: AuthViewModel = viewModel
     val googleLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-        val account = task.result
-        account?.idToken?.let { viewModel.onGoogleSignInResult(it) }
+        try {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            val account = task.getResult(ApiException::class.java)
+            account?.idToken?.let { viewModel.onGoogleSignInResult(it) }
+        } catch (e: ApiException) {
+            viewModel.errorMessage.value = "Error de Google: ${e.statusCode}"
+        }
     }
 
     // Navegar si el login es exitoso
