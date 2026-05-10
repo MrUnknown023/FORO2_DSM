@@ -36,4 +36,64 @@ class GastosRepository {
                 onResult(false, "Error al guardar: ${e.message}")
             }
     }
+    fun obtenerGastos(onResult: (List<Gasto>) -> Unit) {
+
+        val currentUser = auth.currentUser
+
+        if (currentUser == null) {
+            onResult(emptyList())
+            return
+        }
+
+        db.collection("gastos")
+            .whereEqualTo("userId", currentUser.uid)
+            .get()
+            .addOnSuccessListener { result ->
+
+                val lista = result.documents.mapNotNull { document ->
+
+                    val gasto = document.toObject(Gasto::class.java)
+
+                    gasto?.copy(id = document.id)
+                }
+
+                onResult(lista)
+            }
+            .addOnFailureListener {
+                onResult(emptyList())
+            }
+    }
+
+    fun eliminarGasto(
+        id: String,
+        onResult: (Boolean) -> Unit
+    ) {
+
+        db.collection("gastos")
+            .document(id)
+            .delete()
+            .addOnSuccessListener {
+                onResult(true)
+            }
+            .addOnFailureListener {
+                onResult(false)
+            }
+    }
+
+    fun editarGasto(
+        gasto: Gasto,
+        onResult: (Boolean) -> Unit
+    ) {
+
+        db.collection("gastos")
+            .document(gasto.id)
+            .set(gasto)
+            .addOnSuccessListener {
+                onResult(true)
+            }
+            .addOnFailureListener {
+                onResult(false)
+            }
+    }
+
 }
