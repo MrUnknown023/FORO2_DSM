@@ -8,4 +8,4 @@
 - [x] **Validación Estricta de Fechas:** Reemplazar el `TextField` de texto libre para la fecha por un componente `DatePickerDialog` para asegurar que el formato (dd/MM/yyyy) sea consistente en la base de datos.
 - [x] **Menú Desplegable de Categorías:** Cambiar el campo de texto de "Categoría" por un `DropdownMenu`. Restringir las opciones a valores predefinidos (ej. Alimentación, Transporte, Salud) para evitar discrepancias en la escritura y facilitar el filtrado posterior.
 - [x] **Persistencia de Sesión:** Agregar validación en el `AppNavigation` o `MainActivity` para verificar si `FirebaseAuth.getInstance().currentUser` no es nulo al abrir la app, redirigiendo al usuario directamente a la pantalla de gastos sin tener que loguearse cada vez.
-- [ ] **Reglas de Seguridad en Firestore:** Actualmente la base de datos está en "Modo de Prueba". Se deben escribir reglas en la consola de Firebase para garantizar que un usuario solo pueda leer y escribir documentos donde el campo `userId` coincida con su `request.auth.uid`.
+
